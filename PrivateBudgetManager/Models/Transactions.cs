@@ -9,7 +9,7 @@ namespace PrivateBudgetManager.Models
         public int Id { get; set; }
 
         [Display(Name = "Transfer Værdi")]
-        public float Value { get; set; }
+        public int Value { get; set; }
 
         [Display(Name = "Transfer Dato")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]

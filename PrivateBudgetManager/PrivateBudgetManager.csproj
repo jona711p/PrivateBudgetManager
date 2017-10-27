@@ -133,7 +133,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Transactions.cs" />
-    <Compile Include="Models\TransactionsDBHandle.cs" />
+    <Compile Include="Db\TransactionsDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

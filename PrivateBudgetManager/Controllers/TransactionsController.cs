@@ -1,11 +1,13 @@
 ﻿using System.Web.Mvc;
+using PrivateBudgetManager.Db;
 using PrivateBudgetManager.Models;
 
 namespace PrivateBudgetManager.Controllers
 {
     public class TransactionsController : Controller
     {
-        private TransactionsDBHandle transactionsDb = new TransactionsDBHandle();
+        TransactionsDb transactionsDb = new TransactionsDb();
+
         // GET: Transactions
         public ActionResult Index()
         {
@@ -48,11 +50,11 @@ namespace PrivateBudgetManager.Controllers
 
         // POST: Transactions/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Transactions inputTransaction)
         {
             try
             {
-                // TODO: Add update logic here
+                transactionsDb.EditTransaction(id, inputTransaction);
 
                 return RedirectToAction("Index");
             }
@@ -65,7 +67,7 @@ namespace PrivateBudgetManager.Controllers
         // GET: Transactions/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(transactionsDb.GetTransactions().Find(transaction => transaction.Id == id));
         }
 
         // POST: Transactions/Delete/5
@@ -74,7 +76,7 @@ namespace PrivateBudgetManager.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                transactionsDb.DeleteTransaction(id);
 
                 return RedirectToAction("Index");
             }

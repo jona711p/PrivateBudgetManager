@@ -5,17 +5,17 @@ namespace PrivateBudgetManager.Controllers
 {
     public class TransactionsController : Controller
     {
-        private TransactionsDBHandle transDBHandle = new TransactionsDBHandle();
+        private TransactionsDBHandle transactionsDb = new TransactionsDBHandle();
         // GET: Transactions
         public ActionResult Index()
         {
-            return View(transDBHandle.GetTransactions());
+            return View(transactionsDb.GetTransactions());
         }
 
         // GET: Transactions/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(transactionsDb.GetTransactions().Find(transaction => transaction.Id == id));
         }
 
         // GET: Transactions/Create
@@ -43,7 +43,7 @@ namespace PrivateBudgetManager.Controllers
         // GET: Transactions/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(transactionsDb.GetTransactions().Find(transaction => transaction.Id == id));
         }
 
         // POST: Transactions/Edit/5

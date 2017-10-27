@@ -6,27 +6,25 @@ namespace PrivateBudgetManager.Models
     public class Transactions
     {
         [Display(Name = "Transfer ID")]
-        public int TransID { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Transfer Værdig")]
-        public float TransValue { get; set; }
+        [Display(Name = "Transfer Værdi")]
+        public float Value { get; set; }
 
-        [Required(ErrorMessage = "Transfer Dato")]
-        public DateTime TransDateTime { get; set; }
+        [Display(Name = "Transfer Dato")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "Transfer Tekst")]
-        public string TransText { get; set; }
+        [Display(Name = "Transfer Tekst")]
+        public string Text { get; set; }
 
-        [Required(ErrorMessage = "Transfer Kategori ID")]
-        public int Trans_FK_CatID { get; set; }
+        [Display(Name = "Kategori ID")]
+        public int CatId { get; set; }
 
-        [Required(ErrorMessage = "Kategori ID")]
-        public int CatID { get; set; }
-
-        [Required(ErrorMessage = "Kategori")]
+        [Display(Name = "Kategori")]
         public string CatName { get; set; }
 
-        [Required(ErrorMessage = "Kategori ID")]
-        public int Cat_FK_CatID { get; set; }
+        [Display(Name = "Kategori ID")]
+        public int CatFK_SubcatId { get; set; }
     }
 }

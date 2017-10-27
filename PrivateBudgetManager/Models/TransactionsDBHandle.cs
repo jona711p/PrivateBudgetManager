@@ -8,25 +8,26 @@ namespace PrivateBudgetManager.Models
 {
     public class TransactionsDBHandle
     {
-        private SqlConnection connection;
+        private SqlConnection connection = null;
+
         private void Connection()
         {
-            string constring = ConfigurationManager.ConnectionStrings["PrivateBudgetManager"].ToString();
-            connection = new SqlConnection(constring);
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["PrivateBudgetManager"].ConnectionString);
         }
 
         public List<Transactions> GetTransactions()
         {
             Connection();
+
             List<Transactions> transactionsList = new List<Transactions>();
 
-            SqlCommand cmd = new SqlCommand("SELECT Category.[Name], Transactions.[Value], Transactions.[Date], Transactions.[Text]" +
-                                            " FROM Category INNER JOIN Transactions ON  Category.ID = Transactions.FK_CatID", connection);
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM View_GetTransactions", connection);
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
             connection.Open();
-            sd.Fill(dt);
+            sda.Fill(dt);
             connection.Close();
 
             foreach (DataRow row in dt.Rows)
@@ -34,12 +35,15 @@ namespace PrivateBudgetManager.Models
                 transactionsList.Add(
                     new Transactions
                     {
-                        CatName = Convert.ToString(row["Name"]),
-                        TransValue = float.Parse(row["Value"].ToString()),
-                        //TransDateTime = Convert.ToDateTime(row["Date"]),
-                        TransText = Convert.ToString(row["Text"])
+                        Id = int.Parse(row["Id"].ToString()),
+                        Value = float.Parse(row["Value"].ToString()),
+                        Date = DateTime.Parse(row["Date"].ToString()),
+                        Text = row["Text"].ToString(),
+                        CatId = int.Parse(row["FK_CatId"].ToString()),
+                        CatName = row["Name"].ToString(),
+                        CatFK_SubcatId = int.Parse(row["FK_SubcatId"].ToString())
                     });
-            }
+                }
 
             return transactionsList;
         }

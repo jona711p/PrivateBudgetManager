@@ -14,7 +14,7 @@ namespace PrivateBudgetManager
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "Transactions",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Transactions", action = "Index", id = UrlParameter.Optional }
             );

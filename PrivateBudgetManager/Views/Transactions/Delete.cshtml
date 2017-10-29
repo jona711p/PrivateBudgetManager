@@ -36,12 +36,12 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.CatId)
-        </dt>
+                @Html.DisplayNameFor(model => model.CatId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CatId)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.CatId)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.CatName)
@@ -52,16 +52,17 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.CatFK_SubcatId)
-        </dt>
+                @Html.DisplayNameFor(model => model.CatFK_SubcatId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CatFK_SubcatId)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.CatFK_SubcatId)
+            </dd>*@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

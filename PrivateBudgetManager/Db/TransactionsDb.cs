@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 using PrivateBudgetManager.Models;
 
 namespace PrivateBudgetManager.Db
@@ -48,6 +49,51 @@ namespace PrivateBudgetManager.Db
             }
 
             return transactionsList;
+        }
+
+        public List<SelectListItem> GetCategories()
+        {
+            Connection();
+
+            List<SelectListItem> categoriesList = new List<SelectListItem>();
+
+            DataTable dataTable = new DataTable();
+
+            SqlCommand command = new SqlCommand("sp_GetCategories", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+            connection.Open();
+            adapter.Fill(dataTable);
+            connection.Close();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                categoriesList.Add(new SelectListItem
+                {
+                    Text = row["Name"].ToString(),
+                    Value = row["Id"].ToString()
+                });
+            }
+
+            return categoriesList;
+        }
+
+        public void CreateTransaction(Transactions inputTransaction)
+        {
+            Connection();
+
+            SqlCommand command = new SqlCommand("sp_CreateTransaction", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add("@Value", SqlDbType.Int).Value = inputTransaction.Value;
+            command.Parameters.Add("@Text", SqlDbType.NVarChar).Value = inputTransaction.Text;
+            command.Parameters.Add("@FK_CatId", SqlDbType.Int).Value = inputTransaction.CatId;
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public void EditTransaction(int id, Transactions inputTransaction)

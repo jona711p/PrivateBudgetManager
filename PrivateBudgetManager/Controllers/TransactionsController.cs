@@ -23,16 +23,18 @@ namespace PrivateBudgetManager.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
+            ViewBag.categoriesList = transactionsDb.GetCategories();
+
             return View();
         }
 
         // POST: Transactions/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Transactions inputTransaction)
         {
             try
             {
-                // TODO: Add insert logic here
+                transactionsDb.CreateTransaction(inputTransaction);
 
                 return RedirectToAction("Index");
             }

@@ -36,7 +36,7 @@ namespace PrivateBudgetManager.Controllers
         // DELETE: api/TransactionsAPI/5
         public void Delete(int id)
         {
-            transactionsDb.DeleteTransaction(id);
+            //transactionsDb.DeleteTransaction(id);
         }
     }
 }

@@ -23,7 +23,9 @@ namespace PrivateBudgetManager.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
-            ViewBag.categoriesList = transactionsDb.GetCategories();
+            SelectList categoriesList = new SelectList(transactionsDb.GetCategories(), "CatName", "CatId");
+
+            ViewBag.categoriesList = categoriesList;
 
             return View();
         }

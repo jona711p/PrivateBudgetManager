@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.Mvc;
 using PrivateBudgetManager.Models;
 
 namespace PrivateBudgetManager.Db
@@ -51,11 +50,11 @@ namespace PrivateBudgetManager.Db
             return transactionsList;
         }
 
-        public List<SelectListItem> GetCategories()
+        public List<Categories> GetCategories()
         {
             Connection();
 
-            List<SelectListItem> categoriesList = new List<SelectListItem>();
+            List<Categories> categoriesList = new List<Categories>();
 
             DataTable dataTable = new DataTable();
 
@@ -68,12 +67,19 @@ namespace PrivateBudgetManager.Db
             adapter.Fill(dataTable);
             connection.Close();
 
+            int tempInt;
+
             foreach (DataRow row in dataTable.Rows)
             {
-                categoriesList.Add(new SelectListItem
+                tempInt = 0;
+
+                int.TryParse(row["FK_CatId"].ToString(), out tempInt);
+
+                categoriesList.Add(new Categories
                 {
-                    Text = row["Name"].ToString(),
-                    Value = row["Id"].ToString()
+                    CatName = row["Name"].ToString(),
+                    CatId = int.Parse(row["Id"].ToString()),
+                    CatFK_SubcatId = tempInt
                 });
             }
 

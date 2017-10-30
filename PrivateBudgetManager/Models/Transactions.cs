@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrivateBudgetManager.Models
 {
-    public class Transactions
+    public class Transactions : Categories
     {
         [Display(Name = "Transfer ID")]
         public int Id { get; set; }
 
         [Display(Name = "Transfer Værdi")]
+        [Required(ErrorMessage = "Du skal anføre en værdi")]
         public int Value { get; set; }
 
         [Display(Name = "Transfer Dato")]
@@ -16,15 +17,7 @@ namespace PrivateBudgetManager.Models
         public DateTime Date { get; set; }
 
         [Display(Name = "Transfer Tekst")]
+        [Required(ErrorMessage = "Du skal anføre en tekst")]
         public string Text { get; set; }
-
-        [Display(Name = "Kategori ID")]
-        public int CatId { get; set; }
-
-        [Display(Name = "Kategori")]
-        public string CatName { get; set; }
-
-        [Display(Name = "Kategori ID")]
-        public int CatFK_SubcatId { get; set; }
     }
 }

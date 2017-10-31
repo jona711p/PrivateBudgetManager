@@ -39,9 +39,8 @@ namespace PrivateBudgetManager.Controllers
             {
                 transactionsDb.CreateTransaction(inputTransaction);
 
-                logs.user = "Claus";
-                logs.oldContent = "Blah3";
-                logs.newContent = "Blah4";
+                logs.user = "Admin";
+                logs.logEntry = "Created a Budget Post with the Value: " + inputTransaction.Value + " and Text: " + inputTransaction.Text + " Under the Category: " + inputTransaction.CatName;
 
                 logs.NewLog(logs);
 

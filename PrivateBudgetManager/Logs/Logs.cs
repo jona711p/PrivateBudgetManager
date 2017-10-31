@@ -6,8 +6,7 @@ namespace PrivateBudgetManager.Logs
     public class Logs
     {
         public string user { get; set; }
-        public string oldContent { get; set; }
-        public string newContent { get; set; }
+        public string logEntry { get; set; }
 
         public void NewLog(Logs inputLog)
         {

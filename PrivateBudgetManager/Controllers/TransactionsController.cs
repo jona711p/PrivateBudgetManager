@@ -7,7 +7,6 @@ namespace PrivateBudgetManager.Controllers
     public class TransactionsController : Controller
     {
         TransactionsDb transactionsDb = new TransactionsDb();
-        Logs.Logs logs = new Logs.Logs();
 
         // GET: Transactions
         public ActionResult Index()
@@ -39,10 +38,10 @@ namespace PrivateBudgetManager.Controllers
             {
                 transactionsDb.CreateTransaction(inputTransaction);
 
-                logs.user = "Admin";
-                logs.logEntry = "Created a Budget Post with the Value: " + inputTransaction.Value + " and Text: " + inputTransaction.Text + " Under the Category: " + inputTransaction.CatName;
+                string tempUser = "Admin";
+                string tempLogEntry = $"Created a Budget Post with the Value: {inputTransaction.Value} and the Text: {inputTransaction.Text} Under the Category: {inputTransaction.CatName}";
 
-                logs.NewLog(logs);
+                ExternalAPIs.Log.NewLog(tempUser, tempLogEntry);
 
                 return RedirectToAction("Index");
             }

@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace PrivateBudgetManager.Logs
+namespace PrivateBudgetManager.ExternalAPIs
 {
-    public class Logs
+    public class Log
     {
         public string user { get; set; }
         public string logEntry { get; set; }
 
-        public void NewLog(Logs inputLog)
+        public static void NewLog(string inputUser, string inputLogEntry)
         {
+            Log log = new Log();
+
+            log.user = inputUser;
+            log.logEntry = inputLogEntry;
+
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
 
-                HttpResponseMessage response = client.PostAsJsonAsync("logs/", inputLog).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync("logs/", log).Result;
 
                 //if (response.IsSuccessStatusCode)
                 //{

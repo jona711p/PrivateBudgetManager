@@ -7,6 +7,7 @@ namespace PrivateBudgetManager.Controllers
     public class TransactionsController : Controller
     {
         TransactionsDb transactionsDb = new TransactionsDb();
+        Logs.Logs logs = new Logs.Logs();
 
         // GET: Transactions
         public ActionResult Index()
@@ -37,6 +38,12 @@ namespace PrivateBudgetManager.Controllers
             try
             {
                 transactionsDb.CreateTransaction(inputTransaction);
+
+                logs.user = "Claus";
+                logs.oldContent = "Blah3";
+                logs.newContent = "Blah4";
+
+                logs.NewLog(logs);
 
                 return RedirectToAction("Index");
             }

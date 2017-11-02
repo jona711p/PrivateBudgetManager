@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using PrivateBudgetManager.Db;
 using PrivateBudgetManager.Models;
 
@@ -39,7 +40,8 @@ namespace PrivateBudgetManager.Controllers
                 transactionsDb.CreateTransaction(inputTransaction);
 
                 string tempUser = "Admin";
-                string tempLogEntry = $"Created a Budget Post with the Value: {inputTransaction.Value} and the Text: {inputTransaction.Text} Under the Category: {inputTransaction.CatName}";
+                string tempLogEntry =
+                    $"Created a Budget Post with the Value: {inputTransaction.Value} and the Text: {inputTransaction.Text} Under the Category: {inputTransaction.CatName}";
 
                 ExternalAPIs.Log.NewLog(tempUser, tempLogEntry);
 
@@ -93,6 +95,21 @@ namespace PrivateBudgetManager.Controllers
             {
                 return View();
             }
+        }
+        
+        public ActionResult PDF()
+        {
+            Uri downloadPDFURI = ExternalAPIs.PDF.GetPDF("2017-10-28T00:00:00", "2017-11-03T00:00:00");
+
+            string downloadPDF = downloadPDFURI.AbsoluteUri;
+
+            string tempUser = "Admin";
+            string tempLogEntry =
+                $"Created a new PDF File. From the date: 2017-10-28T00:00:00, To the date: 2017-11-03T00:00:00";
+
+            ExternalAPIs.Log.NewLog(tempUser, tempLogEntry);
+
+            return Redirect(downloadPDF);
         }
     }
 }

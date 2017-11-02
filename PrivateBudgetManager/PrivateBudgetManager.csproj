@@ -131,6 +131,7 @@
     <Compile Include="Controllers\TransactionsAPIController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Db\TransactionsDb.cs" />
+    <Compile Include="ExternalAPIs\PDF.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -20,16 +20,6 @@ namespace PrivateBudgetManager.ExternalAPIs
                 client.BaseAddress = new Uri("https://privatebudgetmanagerloggingapi.herokuapp.com/");
 
                 HttpResponseMessage response = client.PostAsJsonAsync("logs/", log).Result;
-
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    Console.Write("Success");
-                //}
-
-                //else
-                //{
-                //    Console.Write("Error");
-                //}
             }
         }
     }

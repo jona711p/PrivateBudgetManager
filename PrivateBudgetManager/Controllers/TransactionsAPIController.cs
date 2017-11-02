@@ -12,6 +12,12 @@ namespace PrivateBudgetManager.Controllers
         // GET: api/TransactionsAPI
         public List<Transactions> Get()
         {
+            string tempUser = "Admin";
+            string tempLogEntry =
+                $"Fetched a full transactionlist";
+
+            ExternalAPIs.Log.NewLog(tempUser, tempLogEntry);
+
             return transactionsDb.GetTransactions();
         }
 

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PrivateBudgetManager.Models.Transactions>
+
+@{
+    ViewBag.Title = "Oversigt";
+}
+
+<h2>Oversigt</h2>
+
+<p>
+    @Html.ActionLink("Opret Ny", "Create") |
+    @Html.ActionLink("PDF", "PDF")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CatId)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.CatName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CatFK_SubcatId)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CatId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CatName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CatFK_SubcatId)
+                </td>*@
+            <td>
+                @Html.ActionLink("Redigere", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Slet", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

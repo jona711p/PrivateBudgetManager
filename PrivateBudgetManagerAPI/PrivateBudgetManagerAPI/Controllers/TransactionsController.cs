@@ -1,47 +1,37 @@
 ﻿using PrivateBudgetManagerAPI.Db;
+using PrivateBudgetManagerAPI.Models;
 using System.Collections.Generic;
 using System.Web.Http;
-using PrivateBudgetManagerAPI.Models;
 
 namespace PrivateBudgetManagerAPI.Controllers
 {
-    public class TransactionsAPIController : ApiController
+    public class TransactionsController : ApiController
     {
         TransactionsDb transactionsDb = new TransactionsDb();
 
-        // GET: TransactionsAPI
         public List<Transactions> Get()
         {
-            string tempUser = "Admin";
-            string tempLogEntry = $"Fetched a full transactionlist";
-
-            ExternalAPIs.Log.NewLog(tempUser, tempLogEntry);
-
             return transactionsDb.GetTransactions();
         }
-
-        // GET: TransactionsAPI/5
+        
         public Transactions Get(int id)
         {
             return transactionsDb.GetTransactions().Find(transaction => transaction.Id == id);
         }
-
-        // POST: TransactionsAPI
-        public void Post([FromBody]string value)
+        
+        public void Post([FromBody]Transactions inpuTransaction)
         {
             //transactionsDb.CreateTransaction(inputTransaction);
         }
-
-        // PUT: TransactionsAPI/5
-        public void Put(int id, [FromBody]string value)
+        
+        public void Put(int id, [FromBody]Transactions inpuTransaction)
         {
             //transactionsDb.EditTransaction(id, inputTransaction);
         }
-
-        // DELETE: TransactionsAPI/5
+        
         public void Delete(int id)
         {
-            //transactionsDb.DeleteTransaction(id);
+            transactionsDb.DeleteTransaction(id);
         }
     }
 }

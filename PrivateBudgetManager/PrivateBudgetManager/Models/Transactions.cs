@@ -21,7 +21,6 @@ namespace PrivateBudgetManager.Models
             CatFK_SubcatId = int.Parse(jObject["CatFK_SubcatId"].ToString());
         }
 
-
         [Display(Name = "Transfer ID")]
         public int Id { get; set; }
 
@@ -29,9 +28,12 @@ namespace PrivateBudgetManager.Models
         [Required(ErrorMessage = "Du skal anføre en værdi")]
         public int Value { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Transfer Dato")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Du skal anføre en dato")]
         public DateTime Date { get; set; }
+
 
         [Display(Name = "Transfer Tekst")]
         [Required(ErrorMessage = "Du skal anføre en tekst")]

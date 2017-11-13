@@ -14,6 +14,7 @@ namespace PrivateBudgetManager.ExternalAPIs
         public static List<Transactions> GetTransactions()
         {
             List<Transactions> transactionsList = new List<Transactions>();
+
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage response = client.GetAsync(uri).Result)
@@ -38,6 +39,7 @@ namespace PrivateBudgetManager.ExternalAPIs
         public static Transactions GetTransaction(int id)
         {
             Transactions transaction = new Transactions();
+
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage response = client.GetAsync(uri + id.ToString()).Result)
@@ -64,10 +66,27 @@ namespace PrivateBudgetManager.ExternalAPIs
 
                 StringContent content = new StringContent(jObject.ToString(), Encoding.UTF8, "application/json");
 
-                using (HttpResponseMessage response = client.PostAsync(uri, content).Result)
-                {
-                    
-                }
+                HttpResponseMessage response = client.PostAsync(uri, content).Result;
+            }
+        }
+
+        public static void EditTransaction(Transactions inputTransaction)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                JObject jObject = JObject.FromObject(inputTransaction);
+
+                StringContent content = new StringContent(jObject.ToString(), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(uri, content).Result;
+            }
+        }
+
+        public static void DeleteTransaction(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.DeleteAsync(uri + id.ToString()).Result;
             }
         }
     }

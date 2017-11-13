@@ -34,17 +34,7 @@ namespace PrivateBudgetManagerAPI.Db
 
             foreach (DataRow row in dataTable.Rows)
             {
-                transactionsList.Add(
-                    new Transactions
-                    {
-                        Id = int.Parse(row["Id"].ToString()),
-                        Value = int.Parse(row["Value"].ToString()),
-                        Date = DateTime.Parse(row["Date"].ToString()),
-                        Text = row["Text"].ToString(),
-                        CatId = int.Parse(row["FK_CatId"].ToString()),
-                        CatName = row["Name"].ToString(),
-                        CatFK_SubcatId = int.Parse(row["FK_SubcatId"].ToString())
-                    });
+                transactionsList.Add(new Transactions(row));
             }
 
             return transactionsList;
@@ -75,12 +65,7 @@ namespace PrivateBudgetManagerAPI.Db
 
                 int.TryParse(row["FK_CatId"].ToString(), out tempInt);
 
-                categoriesList.Add(new Categories
-                {
-                    CatName = row["Name"].ToString(),
-                    CatId = int.Parse(row["Id"].ToString()),
-                    CatFK_SubcatId = tempInt
-                });
+                categoriesList.Add(new Categories(row, tempInt));
             }
 
             return categoriesList;
@@ -102,7 +87,7 @@ namespace PrivateBudgetManagerAPI.Db
             connection.Close();
         }
 
-        public void EditTransaction(int id, Transactions inputTransaction)
+        public void EditTransaction(Transactions inputTransaction)
         {
             Connection();
 
@@ -113,7 +98,7 @@ namespace PrivateBudgetManagerAPI.Db
             command.Parameters.Add("@Date", SqlDbType.DateTime).Value = inputTransaction.Date;
             command.Parameters.Add("@Text", SqlDbType.NVarChar).Value = inputTransaction.Text;
 
-            command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+            command.Parameters.Add("@Id", SqlDbType.Int).Value = inputTransaction.Id;
 
             connection.Open();
             command.ExecuteNonQuery();

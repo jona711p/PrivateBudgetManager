@@ -18,15 +18,15 @@ namespace PrivateBudgetManagerAPI.Controllers
         {
             return transactionsDb.GetTransactions().Find(transaction => transaction.Id == id);
         }
-        
-        public void Post([FromBody]Transactions inpuTransaction)
+
+        public void Post([FromBody]Transactions inputTransaction)
         {
-            //transactionsDb.CreateTransaction(inputTransaction);
+            transactionsDb.CreateTransaction(inputTransaction);
         }
         
-        public void Put(int id, [FromBody]Transactions inpuTransaction)
+        public void Put([FromBody]Transactions inputTransaction)
         {
-            //transactionsDb.EditTransaction(id, inputTransaction);
+            transactionsDb.EditTransaction(inputTransaction);
         }
         
         public void Delete(int id)

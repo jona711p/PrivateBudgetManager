@@ -1,16 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Data;
 
 namespace PrivateBudgetManagerAPI.Models
 {
     public class Categories
     {
-        [Display(Name = "Kategori ID")]
+        public Categories()
+        {
+        }
+
+        public Categories(DataRow row, int SubcatId)
+        {
+            CatName = row["Name"].ToString();
+            CatId = int.Parse(row["Id"].ToString());
+            CatFK_SubcatId = SubcatId;
+        }
+
         public int CatId { get; set; }
 
-        [Display(Name = "Kategori")]
         public string CatName { get; set; }
 
-        [Display(Name = "Underkategori ID")]
         public int CatFK_SubcatId { get; set; }
     }
 }

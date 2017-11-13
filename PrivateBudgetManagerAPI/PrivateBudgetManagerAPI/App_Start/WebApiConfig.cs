@@ -12,6 +12,12 @@ namespace PrivateBudgetManagerAPI
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "Categories",
+                routeTemplate: "{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "Transactions",
                 routeTemplate: "{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

@@ -18,14 +18,14 @@ namespace PrivateBudgetManager.Controllers
         
         public ActionResult Create()
         {
-            //SelectList categoriesList = new SelectList(transactionsAPI.GetCategories(), "CatName", "CatId");
+            SelectList categoriesList = new SelectList(CategoriesAPI.GetCategories(), "CatName", "CatId");
 
-            //ViewBag.categoriesList = categoriesList;
+            ViewBag.categoriesList = categoriesList;
 
             return View();
         }
         
-        //[HttpPost]
+        [HttpPost]
         public ActionResult Create(Transactions inputTransaction)
         {
             try
@@ -42,15 +42,15 @@ namespace PrivateBudgetManager.Controllers
         
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(TransactionsAPI.GetTransaction(id));
         }
         
-        //[HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost]
+        public ActionResult Edit(int id, Transactions inputTransaction)
         {
             try
             {
-                // TODO: Add update logic here
+                TransactionsAPI.EditTransaction(inputTransaction);
 
                 return RedirectToAction("Index");
             }
@@ -62,15 +62,15 @@ namespace PrivateBudgetManager.Controllers
         
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(TransactionsAPI.GetTransaction(id));
         }
                 
-        //[HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost]
+        public ActionResult Delete(int id, Transactions inputTransaction)
         {
             try
             {
-                // TODO: Add delete logic here
+                TransactionsAPI.DeleteTransaction(id);
 
                 return RedirectToAction("Index");
             }

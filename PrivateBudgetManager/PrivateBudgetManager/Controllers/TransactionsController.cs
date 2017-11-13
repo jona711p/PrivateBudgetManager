@@ -1,4 +1,6 @@
-﻿using PrivateBudgetManager.ExternalAPIs;
+﻿using System;
+using System.Linq;
+using PrivateBudgetManager.ExternalAPIs;
 using PrivateBudgetManager.Models;
 using System.Web.Mvc;
 
@@ -82,23 +84,27 @@ namespace PrivateBudgetManager.Controllers
 
         public ActionResult PDF()
         {
+            DateTime? fromDate = null;
+            DateTime? toDate = null;
+
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+
             return View();
         }
 
-        public ActionResult GeneratePDF()
+        [HttpPost]
+        public ActionResult PDF(DateTime fromDate, DateTime toDate)
         {
             try
             {
-                //fromDate = DateTime.Parse("2017-10-28T00:00:00");
-                //toDate = DateTime.Parse("2017-11-03T00:00:00");
-
-                PDFAPI.GeneratePDF(TransactionsAPI.GetTransactions());
+                PDFAPI.GeneratePDF(TransactionsAPI.GetTransactions().Where(transactions => transactions.Date >= fromDate && transactions.Date <= toDate).ToList());
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return null;//View();
+                return RedirectToAction("PDF");
             }
         }
     }

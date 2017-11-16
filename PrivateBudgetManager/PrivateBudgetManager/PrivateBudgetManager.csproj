@@ -120,6 +120,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="ExternalAPIs\CategoriesAPI.cs" />
+    <Compile Include="ExternalAPIs\LoggingAPI.cs" />
     <Compile Include="ExternalAPIs\PDFAPI.cs" />
     <Compile Include="ExternalAPIs\TransactionsAPI.cs" />
     <Compile Include="Global.asax.cs">

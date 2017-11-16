@@ -58,7 +58,7 @@ namespace PrivateBudgetManager.ExternalAPIs
             return transaction;
         }
 
-        public static void CreateTransaction(Transactions inputTransaction)
+        public static HttpResponseMessage CreateTransaction(Transactions inputTransaction)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -67,10 +67,12 @@ namespace PrivateBudgetManager.ExternalAPIs
                 StringContent content = new StringContent(jObject.ToString(), Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = client.PostAsync(uri, content).Result;
+
+                return response;
             }
         }
 
-        public static void EditTransaction(Transactions inputTransaction)
+        public static HttpResponseMessage EditTransaction(Transactions inputTransaction)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -79,14 +81,18 @@ namespace PrivateBudgetManager.ExternalAPIs
                 StringContent content = new StringContent(jObject.ToString(), Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = client.PutAsync(uri, content).Result;
+
+                return response;
             }
         }
 
-        public static void DeleteTransaction(int id)
+        public static HttpResponseMessage DeleteTransaction(int id)
         {
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = client.DeleteAsync(uri + id.ToString()).Result;
+
+                return response;
             }
         }
     }

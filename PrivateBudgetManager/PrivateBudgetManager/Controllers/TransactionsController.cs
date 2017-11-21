@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
+using WebSocketSharp;
 
 namespace PrivateBudgetManager.Controllers
 {
@@ -27,10 +30,10 @@ namespace PrivateBudgetManager.Controllers
                 Logging("404 Not Found",
                     "Response: Did NOT received a list of Transactions from the Transactions API");
             }
-            
+
             return View(transactionList);
         }
-        
+
         public ActionResult Details(int id)
         {
             Logging("202 Accepted",
@@ -51,7 +54,7 @@ namespace PrivateBudgetManager.Controllers
 
             return View(transaction);
         }
-        
+
         public ActionResult Create()
         {
             SelectList categoriesList = new SelectList(CategoriesAPI.GetCategories(), "CatName", "CatId");
@@ -63,7 +66,7 @@ namespace PrivateBudgetManager.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Create(Transactions inputTransaction)
         {
@@ -93,7 +96,7 @@ namespace PrivateBudgetManager.Controllers
                 return View();
             }
         }
-        
+
         public ActionResult Edit(int id)
         {
             Logging("202 Accepted",
@@ -101,7 +104,7 @@ namespace PrivateBudgetManager.Controllers
 
             return View(TransactionsAPI.GetTransaction(id));
         }
-        
+
         [HttpPost]
         public ActionResult Edit(int id, Transactions inputTransaction)
         {
@@ -123,7 +126,7 @@ namespace PrivateBudgetManager.Controllers
                 return View();
             }
         }
-        
+
         public ActionResult Delete(int id)
         {
             Logging("202 Accepted",
@@ -131,7 +134,7 @@ namespace PrivateBudgetManager.Controllers
 
             return View(TransactionsAPI.GetTransaction(id));
         }
-                
+
         [HttpPost]
         public ActionResult Delete(int id, Transactions inputTransaction)
         {
@@ -188,13 +191,13 @@ namespace PrivateBudgetManager.Controllers
                     Logging("400 Bad Request",
                         "Response: There where no data between " + fromDate + " & " + toDate);
 
-                    RedirectToAction("PDF");
+                    return View();
                 }
+
+                PDFAPI.GeneratePDF(transactionsList);
 
                 Logging("200 OK",
                     "Response: Data was collected from the database and send to the Generate PDF API");
-
-                PDFAPI.GeneratePDF(transactionsList);
 
                 return RedirectToAction("Index");
             }

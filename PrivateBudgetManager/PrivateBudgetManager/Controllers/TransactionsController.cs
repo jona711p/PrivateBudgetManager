@@ -194,12 +194,14 @@ namespace PrivateBudgetManager.Controllers
                     return View();
                 }
 
-                PDFAPI.GeneratePDF(transactionsList);
-
                 Logging("200 OK",
                     "Response: Data was collected from the database and send to the Generate PDF API");
 
-                return RedirectToAction("Index");
+                Uri downloadURI = PDFAPI.GeneratePDF(transactionsList);
+
+                string downloadPDFURI = downloadURI.AbsoluteUri;
+
+                return Redirect(downloadPDFURI);
             }
             catch (Exception ex)
             {
